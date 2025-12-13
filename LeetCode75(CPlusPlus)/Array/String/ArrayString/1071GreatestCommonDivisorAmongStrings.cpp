@@ -22,7 +22,7 @@ public:
         //just go down : p
         bool done = false;
         while(done == false){
-            if(stringIn(str1,stringSeg) and stringIn(str2,stringSeg)){ 
+            if(stringIn(str1,stringSeg) && stringIn(str2,stringSeg)){ 
                 break;
             }
             //cout << stringSeg << "yer\n";
