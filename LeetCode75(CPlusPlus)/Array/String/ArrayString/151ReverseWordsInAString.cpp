@@ -219,6 +219,132 @@ public:
         startIterPos1 = s.begin();
         startIterPos2 = s.begin();
         while(startIterPos2 <= endIterPos1){
+            while(*startIterPos2 != ' '){
+                startIterPos2++;
+            }
+            while(*endIterPos1 != ' '){
+                endIterPos1--;
+            }
+            //Trygve Jill Mack Joe
+            //we have
+            //Trygve_
+            //and
+            //_Joe            
+            //right side MackJoe_
+            //ie Joe_
+            //LeftSide ygveTr_ 
+
+            //Joe ... Trygve
+            //_Joe
+            //_veTryg
+            if(*startIterPos2 == ' ' && *endIterPos1 == ' '){
+                cout << (startIterPos2 - startIterPos1) << " start1 - start2\n";
+                cout << (endIterPos2 - endIterPos1) << " end1 - end2\n";
+                if((endIterPos2 - endIterPos1) > (startIterPos2 - startIterPos1)){
+                    int differenceCount = (endIterPos2 - endIterPos1) - (startIterPos2 - startIterPos1);
+                    cout << differenceCount << " diffcount\n";
+                    //the_
+                    //_the
+                    placeholder = startIterPos2;
+                    while(startIterPos2 != startIterPos1){
+                        swap(*startIterPos2,*(startIterPos2-1));
+                        cout << s << "\n";
+                        startIterPos2--;
+                    }
+                    startIterPos2 = placeholder;
+                    //_blue
+                    //_blue
+                    while(differenceCount > 1){
+                        //some swapping
+                        placeholder = endIterPos2;
+                        while(endIterPos2 != endIterPos1){
+                            //TBD
+                            swap(*endIterPos2, *(endIterPos2+1));
+                            cout << s << "\n";
+                            endIterPos2--;
+                        }
+                        endIterPos2 = placeholder;
+                        differenceCount--;
+                    }
+                    
+                    //swap the full left
+                    //and up to the endIterPos1+Difference
+                    cout << *startIterPos1 << " start1 " <<  *startIterPos2 << " start2\n";
+                    cout << *endIterPos1 << " end1 " << *endIterPos2 << " end2\n";
+                    
+                    //could need to modify this with diffence
+                    placeholder = endIterPos1;
+                    endIterPos1 = endIterPos1 + differenceCount;
+                    while(startIterPos1 <= startIterPos2){
+                        swap(*startIterPos1,*endIterPos1);
+                        cout << s << "\n";
+                        startIterPos1++;
+                        endIterPos1++;
+                    }
+                    endIterPos1 = placeholder;
+
+                    startIterPos2 = startIterPos1;
+                }
+                //right now 
+                cout << *startIterPos1 << " start1 " <<  *startIterPos2 << " start2\n";
+                cout << *endIterPos1 << " end1 " << *endIterPos2 << " end2\n";
+                //I want it once it heads out for start to go find the end of a new word
+                break;
+            }
+        }
+        return s;
+    }
+    void FullWordSwapper(string::iterator s1, int s1Length){
+        //check for number of complete words (i.e spaces)
+        //cycle to setup
+        
+    }
+    void PartialWordSwapper(string::iterator s1, int s1Length){
+
+    }
+};
+public:
+    string reverseWords(string s) {
+        //maybe usages of substr
+        //swap
+        //npos
+        auto startIterPos1 = s.begin();
+        auto startIterPos2 = s.begin();
+        auto endIterPos1 = s.end()-1;
+        auto endIterPos2 = s.end()-1;
+        string::iterator placeholder;
+        int wordCount;
+
+        //white space removal
+        while(*startIterPos2 == ' '){
+            startIterPos2++;
+        }
+
+        while(startIterPos2 <= endIterPos2){
+            while(*startIterPos2 != ' ' && startIterPos2 <= endIterPos2){
+                swap(*startIterPos2, *startIterPos1);
+                startIterPos1++;
+                startIterPos2++;
+            }
+            startIterPos2++;
+            startIterPos1++;
+            while(startIterPos2 < endIterPos2 && *startIterPos2 == ' '){
+                startIterPos2++;
+            } 
+        }
+
+        while(*endIterPos2 == ' '){
+            s.pop_back();
+            endIterPos2--;
+        }
+
+        cout << s << "\n";
+
+        endIterPos1 = endIterPos2;
+
+        startIterPos1 = s.begin();
+        startIterPos2 = s.begin();
+        while(startIterPos2 <= endIterPos1){
             if(*startIterPos2 != ' '){
                 startIterPos2++;
             }
