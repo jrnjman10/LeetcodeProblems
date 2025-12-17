@@ -182,6 +182,7 @@ public:
         //maybe usages of substr
         //swap
         //npos
+        //s = "the sky is blue";
         auto startIterPos1 = s.begin();
         auto startIterPos2 = s.begin();
         auto endIterPos1 = s.end()-1;
@@ -218,13 +219,16 @@ public:
 
         startIterPos1 = s.begin();
         startIterPos2 = s.begin();
-        while(startIterPos2 <= endIterPos1){
+
+        
+
+        while(startIterPos2 <= endIterPos1){   
             while(*startIterPos2 != ' '){
                 startIterPos2++;
             }
             while(*endIterPos1 != ' '){
                 endIterPos1--;
-            }
+            }      
             //Trygve Jill Mack Joe
             //we have
             //Trygve_
@@ -237,35 +241,40 @@ public:
             //Joe ... Trygve
             //_Joe
             //_veTryg
+
+            //new rule is that everything is a right space
             if(*startIterPos2 == ' ' && *endIterPos1 == ' '){
                 cout << (startIterPos2 - startIterPos1) << " start1 - start2\n";
                 cout << (endIterPos2 - endIterPos1) << " end1 - end2\n";
                 if((endIterPos2 - endIterPos1) > (startIterPos2 - startIterPos1)){
+                    startIterPos2--;
+                    endIterPos1++;
                     int differenceCount = (endIterPos2 - endIterPos1) - (startIterPos2 - startIterPos1);
                     cout << differenceCount << " diffcount\n";
                     //the_
                     //_the
-                    placeholder = startIterPos2;
-                    while(startIterPos2 != startIterPos1){
-                        swap(*startIterPos2,*(startIterPos2-1));
-                        cout << s << "\n";
-                        startIterPos2--;
-                    }
-                    startIterPos2 = placeholder;
-                    //_blue
-                    //_blue
-                    while(differenceCount > 1){
+                    // placeholder = startIterPos2;
+                    // while(startIterPos2 != startIterPos1){
+                    //     swap(*startIterPos2,*(startIterPos2-1));
+                    //     cout << s << "\n";
+                    //     startIterPos2--;
+                    // }
+                    // startIterPos2 = placeholder;
+                    //blue
+                    //eblu
+                    int countPlaceholder = differenceCount;
+                    while(differenceCount > 0){
                         //some swapping
                         placeholder = endIterPos2;
                         while(endIterPos2 != endIterPos1){
-                            //TBD
-                            swap(*endIterPos2, *(endIterPos2+1));
+                            swap(*endIterPos2, *(endIterPos2-1));
                             cout << s << "\n";
                             endIterPos2--;
                         }
                         endIterPos2 = placeholder;
                         differenceCount--;
                     }
+                    differenceCount = countPlaceholder;
                     
                     //swap the full left
                     //and up to the endIterPos1+Difference
@@ -282,81 +291,71 @@ public:
                         endIterPos1++;
                     }
                     endIterPos1 = placeholder;
-
                     startIterPos2 = startIterPos1;
+                    //probably look back at this assignment of endPos2 here as may need to use difference
+                    endIterPos2 = endIterPos1;
+
+                    //find new word
+                    // while(*startIterPos2 != ' '){
+                    //     startIterPos2++;
+                    // }
+                    startIterPos2++;
+                    endIterPos1--;
+                } else if((startIterPos2 - startIterPos1) > (endIterPos2 - endIterPos1) ){
+                    startIterPos2--;
+                    //could be dependent on the difference
+                    //_sky
+                    //y_sk
+                    placeholder = startIterPos2;
+                    while(startIterPos2 != startIterPos1){
+                        swap(*startIterPos2,*(startIterPos2-1));
+                        cout << s << "\n";
+                        startIterPos2--;
+                    }
+                    startIterPos2 = placeholder;
+                    //_e
+                    //e_
+                    //could also be dependent on the difference
+                    placeholder = endIterPos2;
+                    while(endIterPos2 != endIterPos1){
+                        swap(*endIterPos2,*(endIterPos2-1));
+                        cout << s << "\n";
+                        endIterPos2--;
+                    }
+                    endIterPos2 = placeholder;
+
+                    placeholder = endIterPos1;
+                    while(endIterPos1 <= endIterPos2){
+                        swap(*endIterPos1, *startIterPos1);
+                        cout << s << "\n";
+                        endIterPos1++;
+                        startIterPos1++;
+                    }
+                    
+                    //check these f or accuracy
+                    endIterPos1 = placeholder;
+                    endIterPos1--;
+                    endIterPos2 = endIterPos1;
+                } else {
+                    endIterPos1++;
+                    
+                    placeholder = endIterPos1;
+                    while(endIterPos1 <= endIterPos2){
+                        swap(*endIterPos1, *startIterPos1);
+                        cout << s << "\n";
+                        endIterPos1++;
+                        startIterPos1++;
+                    }
+                    //Check these
+                    endIterPos1 = placeholder;
+                    endIterPos1--;
+                    endIterPos2 = endIterPos1;
+                    startIterPos2++;
                 }
                 //right now 
                 cout << *startIterPos1 << " start1 " <<  *startIterPos2 << " start2\n";
                 cout << *endIterPos1 << " end1 " << *endIterPos2 << " end2\n";
                 //I want it once it heads out for start to go find the end of a new word
-                break;
-            }
-        }
-        return s;
-    }
-    void FullWordSwapper(string::iterator s1, int s1Length){
-        //check for number of complete words (i.e spaces)
-        //cycle to setup
-        
-    }
-    void PartialWordSwapper(string::iterator s1, int s1Length){
-
-    }
-};
-public:
-    string reverseWords(string s) {
-        //maybe usages of substr
-        //swap
-        //npos
-        auto startIterPos1 = s.begin();
-        auto startIterPos2 = s.begin();
-        auto endIterPos1 = s.end()-1;
-        auto endIterPos2 = s.end()-1;
-        string::iterator placeholder;
-        int wordCount;
-
-        //white space removal
-        while(*startIterPos2 == ' '){
-            startIterPos2++;
-        }
-
-        while(startIterPos2 <= endIterPos2){
-            while(*startIterPos2 != ' ' && startIterPos2 <= endIterPos2){
-                swap(*startIterPos2, *startIterPos1);
-                startIterPos1++;
-                startIterPos2++;
-            }
-            startIterPos2++;
-            startIterPos1++;
-            while(startIterPos2 < endIterPos2 && *startIterPos2 == ' '){
-                startIterPos2++;
-            } 
-        }
-
-        while(*endIterPos2 == ' '){
-            s.pop_back();
-            endIterPos2--;
-        }
-
-        cout << s << "\n";
-
-        endIterPos1 = endIterPos2;
-
-        startIterPos1 = s.begin();
-        startIterPos2 = s.begin();
-        while(startIterPos2 <= endIterPos1){
-            if(*startIterPos2 != ' '){
-                startIterPos2++;
-            }
-            if(*endIterPos1 != ' '){
-                endIterPos1--;
-            }
-                    //Trygve Jill Mack Joe
-                    //right side MackJoe_
-                    //ie Joe_
-                    //LeftSide ygveTr_ 
-            if(*startIterPos2 == ' ' && *endIterPos1 == ' '){
-                break;
             }
         }
         return s;
