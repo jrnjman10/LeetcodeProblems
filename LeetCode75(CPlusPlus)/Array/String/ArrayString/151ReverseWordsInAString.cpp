@@ -4,18 +4,43 @@ public:
         //maybe usages of substr
         //swap
         //npos
-        //with replace I just keep track of where I strated and where I'm at
-        //Then what I replace with is the current strings
         auto startIterPos1 = s.begin();
         auto startIterPos2 = s.begin();
-
-        //Pos 1 will be leftmost value and Pos 3 the rightmost
-
         auto endIterPos1 = s.end()-1;
         auto endIterPos2 = s.end()-1;
         string::iterator placeholder;
-        //how do I do it in place
+        int wordCount;
 
+        //white space removal
+        while(*startIterPos2 == ' '){
+            startIterPos2++;
+        }
+
+        while(startIterPos2 <= endIterPos2){
+            while(*startIterPos2 != ' ' && startIterPos2 != endIterPos2){
+                swap(*startIterPos2, *startIterPos1);
+                //cout << *startIterPos2 << " " << *startIterPos1 << "\n";
+                startIterPos1++;
+                startIterPos2++;
+            }
+            startIterPos2++;
+            startIterPos1++;
+            while(*startIterPos2 == ' '){
+                startIterPos2++;
+            }   
+            //startIterPos1 = startIterPos2;
+        }
+
+        while(*endIterPos2 == ' '){
+            s.pop_back();
+            endIterPos2--;
+        }
+
+        endIterPos1 = endIterPos2;
+
+        startIterPos1 = s.begin();
+        startIterPos2 = s.begin();
+        //end of white space removal
 
         //will have to check that != for > < >= <= 
         while(startIterPos2 <= endIterPos1){
@@ -35,9 +60,13 @@ public:
 
             //need to think about how I need to place the first position word correctly
             //might want to think about what I can do with the ends of the words
+            //I could swap what would be at the tail end of the word to the start
+            //of a word and make sure that only the begining of the words are swapped
+            //and the remainder of any word is in the proper order.
             if(*startIterPos2 == ' ' && *endIterPos1 == ' '){
                 if(startIterPos2 - startIterPos1 > endIterPos2 - endIterPos1){
                     cout << "\nfirst word is bigger\n";
+
                     placeholder = endIterPos1;
                     //has to do with this position
                     endIterPos1++;
@@ -58,6 +87,9 @@ public:
 
                 } else {
                     cout << "\nsecond word is bigger or same\n";
+                    int difference = (endIterPos1 - endIterPos2) - (startIterPos1 - startIterPos2);
+                    //where first letter needs to go
+                    cout << "\n swap \n" << s << "\n";
                     placeholder = endIterPos1;
                     //it'll matter here too when we need to make sure there is enough 
                     //room for the word
@@ -80,5 +112,10 @@ public:
             }
         }
         return s;
+    }
+    void setupSwapper(string::iterator s1, int s1Length){
+        //check for number of complete words (i.e spaces)
+        //cycle to setup
+        
     }
 };
