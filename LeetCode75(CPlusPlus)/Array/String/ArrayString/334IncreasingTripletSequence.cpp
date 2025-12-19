@@ -15,25 +15,37 @@ public:
             if(*p1 < *p2 && *p2 < *p3){
                 final = true; 
             }
-            if(*p1 > *p3 && *p2 > *p3){
-                p3--;
+            //wrong
+            if(*p1 > *p3 && *p2 > *p3 && *p1 > *p2){
+                p1 = p2;
+                p2 ++;
+                //TBD
+            } 
+            if(*p1 > *p3 && *p2 > *p3 && *p1 < *p2){
+                p1 = p2;
+                p2 ++;
+                //TBD
             }
             //troublesome one
+            //changed p1 > p3 to p1 >= p3
             if(*p2 > *p1 && *p2 > *p3 && *p1 > *p3){
                 p3--;
-            }
+            } 
             if(*p2 > *p1 && *p2 > *p3 && *p1 < *p3){
                 p2++;
-            }
+            } 
             //seems true that
             if(*p2 < *p3 && *p1 > *p2){
                 p1 = p2;
                 p2++;
-            }
+            } 
             if(*p1 > *p2 && *p2 > *p3){
                 p1 = p2;
                 p2++;
                 p3--;
+            } 
+            if(*p1 < *p2 && *p1 >= *p3){
+
             }
             if(final){
                 break;
