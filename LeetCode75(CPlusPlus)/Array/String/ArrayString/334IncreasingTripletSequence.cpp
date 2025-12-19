@@ -2,56 +2,27 @@ class Solution {
 public:
     bool increasingTriplet(vector<int>& nums) {
         bool final = false;
-        if(nums.size() < 3){
+        if(nums.size() < 2){
             return final;
         }
-        auto p1 = nums.begin();
-        //more benefit middle?
-        auto p2 = nums.begin()+1;
-        auto p3 = nums.end()-1;
-        
-        while(p2 < p3){
-            //cout << *p1 << " p1 " << *p2 << " p2 " << *p3 << " p3 \n";
-            if(*p1 < *p2 && *p2 < *p3){
-                final = true; 
+        auto iter = nums.begin();
+        int p1 = pow(2,31) - 1;
+        int p2 = pow(2,31) - 1;
+        int p3;
+        while(iter < nums.end()){
+            if(*iter <= p1){
+                p1 = *iter;
+            } else if(*iter <= p2) {
+                p2 = *iter;
             }
-            //wrong
-            if(*p1 > *p3 && *p2 > *p3 && *p1 > *p2){
-                p1 = p2;
-                p2 ++;
-                //TBD
-            } 
-            if(*p1 > *p3 && *p2 > *p3 && *p1 < *p2){
-                p1 = p2;
-                p2 ++;
-                //TBD
-            }
-            //troublesome one
-            //changed p1 > p3 to p1 >= p3
-            if(*p2 > *p1 && *p2 > *p3 && *p1 > *p3){
-                p3--;
-            } 
-            if(*p2 > *p1 && *p2 > *p3 && *p1 < *p3){
-                p2++;
-            } 
-            //seems true that
-            if(*p2 < *p3 && *p1 > *p2){
-                p1 = p2;
-                p2++;
-            } 
-            if(*p1 > *p2 && *p2 > *p3){
-                p1 = p2;
-                p2++;
-                p3--;
-            } 
-            if(*p1 < *p2 && *p1 >= *p3){
-
-            }
-            if(final){
+            if (*iter > p2 && p2 > p1){
+                p3 = *iter;
+                final = true;
                 break;
             }
-        
+            iter++;
         }
+        cout << p1 << " p1 " << p2 << " p2 " << p3 << " p3\n";
         return final;
     }
 };
