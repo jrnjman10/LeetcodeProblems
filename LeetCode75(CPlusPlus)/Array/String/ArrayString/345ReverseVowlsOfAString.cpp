@@ -95,6 +95,7 @@ public:
         auto iterNew = chars.begin();
         char curChar = *iterOri;
         int count = 0;
+        int charCount = 1;
         while(iterNew != chars.end()){
             // for(auto j : chars){
             //     cout << j;
@@ -112,20 +113,25 @@ public:
                 //erase is [ )
                 //set curChar
                     chars.erase(iterOri+1,iterNew);
-                    for(auto j : chars){
-                        cout << j;
-                    }
-                    cout << "\n";
+                    // for(auto j : chars){
+                    //     cout << j;
+                    // }
+                    charCount++;
+                    iterNew = chars.begin()+charCount;
+                    charCount--;
                     //cout << " " << *iterOri << " iterOri " << *iterNew << " iterNew\n";
                     for(auto i : to_string(count)){
-                        chars.insert(iterNew-1,i);
-                    }   
-                    for(auto j : chars){
-                        cout << j;
-                    }
-                    cout << "\n";
+                        chars.insert(chars.begin()+charCount,i);
+                        charCount++;
+                    }                       
+                    // for(auto j : chars){
+                    //     cout << j;
+                    // }
+                    // cout << "\n";
                     //cout << " " << *iterOri << " iterOri " << *iterNew << " iterNew\n";
                 } 
+                iterNew = chars.begin()+charCount;
+                charCount++;
                 curChar = *iterNew;
                 iterOri = iterNew;
                 count = 1;
