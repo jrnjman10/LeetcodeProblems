@@ -90,35 +90,58 @@ public:
 
 class Solution {
 public:
-    string reverseVowels(string s) {
-        auto forwardIterator = s.begin();
-        auto backwardIterator = s.end();
-        char placeholder;
-        bool foundVowl = false;
-        bool findSwap = false;
-        while (forwardIterator < backwardIterator){
-            for( auto i : "aeiouAEIOU"){
-                if(*forwardIterator == i) foundVowl = true;
-            }
-            while(foundVowl && backwardIterator >= forwardIterator){
-                backwardIterator--;
-                //cout << *backwardIterator << "\n";
-                for (auto i : "aeiouAEIOU"){
-                    if(*backwardIterator == i){
-                        foundVowl = false;
-                        findSwap = true;
+    int compress(vector<char>& chars) {
+        auto iterOri = chars.begin();
+        auto iterNew = chars.begin();
+        char curChar = *iterOri;
+        int count = 0;
+        while(iterNew != chars.end()){
+            // for(auto j : chars){
+            //     cout << j;
+
+            // }
+            //cout << " " << *iterOri << " iterOri " << *iterNew << " iterNew\n";
+            if(*iterNew != curChar){
+                if(count != 1){
+                //erase the elements from 
+                //origin to New
+                //InsertNumber if count > 1
+                //count = 1
+                //iterOri = iterNew
+                //insert happens before the iterator
+                //erase is [ )
+                //set curChar
+                    chars.erase(iterOri+1,iterNew);
+                    for(auto j : chars){
+                        cout << j;
                     }
-                }
+                    cout << "\n";
+                    //cout << " " << *iterOri << " iterOri " << *iterNew << " iterNew\n";
+                    for(auto i : to_string(count)){
+                        chars.insert(iterNew-1,i);
+                    }   
+                    for(auto j : chars){
+                        cout << j;
+                    }
+                    cout << "\n";
+                    //cout << " " << *iterOri << " iterOri " << *iterNew << " iterNew\n";
+                } 
+                curChar = *iterNew;
+                iterOri = iterNew;
+                count = 1;
+            } else {
+                count++;
+                //cout << to_string(count) << " " << *iterOri << " iterOri " << *iterNew << " iterNew\n";
             }
-            if(findSwap){
-                findSwap = false;
-                //cout << *forwardIterator << " swaps with " << *backwardIterator << "\n";
-                placeholder = *forwardIterator;
-                *forwardIterator = *backwardIterator;
-                *backwardIterator = placeholder;
-            }
-            forwardIterator++;
+            iterNew++;
         }
-        return s;
+        if(count != 1){
+            chars.erase(iterOri+1,iterNew);
+            for(auto i : to_string(count)){
+                        //cout << i << "\n";
+                        chars.insert(chars.begin()+chars.size(),i);
+            } 
+        }
+        return chars.size();
     }
 };
