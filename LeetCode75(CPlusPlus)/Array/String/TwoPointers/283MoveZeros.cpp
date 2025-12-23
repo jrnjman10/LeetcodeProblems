@@ -8,17 +8,17 @@ public:
         auto itnums = nums.begin();
         auto it2 = itnums;
         auto itend = nums.end()-1;
-        while(itbump < itend){
-            it1 = itbump;
-            if(*itbump == 0){
-                while(itbump < itend){
-                    swap(*itbump,*(itbump+1));
-                    itbump++;
-                }
-                itend--;
-                itbump = it1;
-            } else {
-                itbump++;
+        while(*itend == 0 && itend > nums.begin()){
+            itend--;
+        }
+        while(itbump < itend && itbump < itend){
+            while(*itnums == 0 && itnums < itend){
+                itnums++;
+            }
+            swap(*itbump,*itnums);
+            itbump++;
+            if(itbump > itnums){
+                itnums = itbump;
             }
         }
     }
