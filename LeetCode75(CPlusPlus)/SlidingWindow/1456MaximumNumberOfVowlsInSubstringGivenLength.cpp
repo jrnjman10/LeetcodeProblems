@@ -1,3 +1,5 @@
+bool isVowl(char c);
+
 class Solution {
 public:
     int maxVowels(string s, int k) {
@@ -5,28 +7,23 @@ public:
         int curMax = 0;
         int max;
         for(int i = 0; i < k; i++){
-            for(char j : "aeiou"){
-                if(j == s[i]){
-                    curMax++;
-                }
+            if(isVowl(s[i])){
+                curMax++;
             }
+            
         }
         max = curMax;
         for(int t = k; t < s.size(); t++){
+            //cout << to_string(curMax) << " ";
             if(curMax == k){
                 return curMax;
             } 
-            cout << s[t] << " ";
-            for(char j : "aeiou"){
-                if(s[t] == j){
-                    curMax++;
-                } 
+            if(curMax != 0 && isVowl(s[t-k])){
+                curMax--;
             }
-            for(char j : "aeiou"){
-                if(s[t-k] == j){
-                    curMax--;
-                }
-            }
+            if(isVowl(s[t])){
+                curMax++;
+            } 
             if(curMax > max){
                 max = curMax;
             }
@@ -34,3 +31,7 @@ public:
         return max;
     }
 };
+
+bool isVowl(char c){
+    return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u';
+}
