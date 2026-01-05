@@ -16,6 +16,10 @@ public:
         }
         cout << "\n";
         max1 = curMax;
+
+        //if I wanted to go back and fix this 
+        //I should go and try to reduce ifs, make it more simple now that 
+        //I understand what the problem it
         while(it2 < nums.end()){
             if(*it2 == 1){
                 curMax++;
