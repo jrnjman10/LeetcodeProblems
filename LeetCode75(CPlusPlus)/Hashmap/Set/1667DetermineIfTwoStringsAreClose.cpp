@@ -12,24 +12,21 @@ public:
         if(word1.length() == word2.length()){
             //while not at end of string
             auto i = word1.begin();
-            while(i <= word1.end()){
+            while(i != word1.end()){
                 //if char not in unordered set emplace
-                if(existChar.find(*i) != existChar.end()){
+                if(existChar.find(*i) == existChar.end()){
                     existChar.emplace(*i);
                 }
                 //iterate over chars
-                cout << *i << " \n";
+                //cout << *i << " \n";
                 i++;
             }
-            auto k = existChar.begin()
-            while(k <= existChar.end()){
-                cout << *k << "\n";
-                k++;
-            }
+
             auto j = word2.begin();
             //while not at end of string2
-            while(j <= word2.end()){
+            while(j != word2.end()){
                 //if char not in unordered set return false
+                //cout << *j << " \n";
                 if(existChar.find(*j) == existChar.end()){
                     return false;
                 }
