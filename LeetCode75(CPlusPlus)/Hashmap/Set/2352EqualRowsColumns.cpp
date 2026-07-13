@@ -40,3 +40,11 @@ public:
         return count;
     }
 };
+
+
+/*
+For the faster solution you store the rows as a map
+Then you interate by columns and compare the created column, to see if it is in the map
+If it is you iterate if not, then don't
+*/
+
