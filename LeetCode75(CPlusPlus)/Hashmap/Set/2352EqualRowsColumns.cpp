@@ -48,3 +48,32 @@ Then you interate by columns and compare the created column, to see if it is in 
 If it is you iterate if not, then don't
 */
 
+class Solution {
+public:
+    int equalPairs(vector<vector<int>>& grid) {
+        
+        map<vector<int>,int> mp;
+        for(auto i = 0; i < grid.size(); i++){
+            mp[grid[i]]++;
+        }
+        int counter = 0;
+        vector<int> v;
+
+        for(auto i = 0; i < grid.size(); i++){
+            //column we need grid[c][0], c+1 0, c+2 0, ...
+            
+            for(auto c = 0; c < grid.size(); c++){
+                v.emplace_back(grid[c][i]);
+                // cout << grid[c][i] << " " << grid[i][c] << "\n";
+            }
+            auto it = mp.find(v);
+            if(it != mp.end()){
+                counter += it->second;
+            }
+
+            v.clear();
+            // cout << "--------------------\n";
+        }
+        return counter;
+    }
+};
