@@ -28,27 +28,9 @@ public:
         That would work with recursion
         How can I turn a recursive answer into 2 for loops?
         */
-        //Let's just do recursive first and go from there
-        if(root == nullptr){
-            return 0;
-        }
-
-        if(root->left == nullptr && root->right == nullptr){
-            return 1;
-        }
-
-        if(root->left == nullptr){ //there is no left child
-            return 1 + maxDepth(root->right);
-        } else if(root->right == nullptr){ //there is no right child
-            return 1 + maxDepth(root->left);
-        } else {//there are two children
-            int mDepthL = maxDepth(root->left);
-            int mDepthR = maxDepth(root->right);
-            if(mDepthL > mDepthR ){ //if left value is > right
-                return 1 + mDepthL;
-            } else {
-                return 1 + mDepthR;
-            }
-        }
+        if(root == nullptr) return 0;
+        int L = maxDepth(root->left);
+        int R = maxDepth(root->right);
+        return max(L,R)+1;
     }
 };
