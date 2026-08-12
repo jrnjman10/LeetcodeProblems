@@ -9,6 +9,10 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+
+void getLeafNodes(TreeNode* root, vector<int>& leafNodes);
+
 class Solution {
 public:
     bool leafSimilar(TreeNode* root1, TreeNode* root2) {
@@ -24,14 +28,10 @@ public:
         */
     
 
-        if(root1->left == nullptr && root1->right == nullptr && root2->left == nullptr && root2->right == nullptr){
-            return root1->val == root2->val;
-        }else if(root1->left == nullptr && root1->right == nullptr){
-            return leafSimilar(root1,root2->left);
-        } else if (root2->left == nullptr && root2->right == nullptr){
-            return leafSimilar(root1->left,root2);
-        } 
-        return leafSimilar(root1->left,root2->left);
+        vector<int> leafNode_root1, leafNode_root2;
+        getLeafNodes(root1, leafNode_root1);
+        getLeafNodes(root2, leafNode_root2);
+        return leafNode_root1 == leafNode_root2;
 
         /*
         What is our base case?
@@ -40,3 +40,18 @@ public:
         */
     }
 };
+
+void getLeafNodes(TreeNode* root, vector<int>& leafNodes){
+    if(!root){
+        return;
+    }
+
+    if(!root->left && !root->right){
+        leafNodes.push_back(root->val);
+        return;
+    }
+
+    getLeafNodes(root->left,leafNodes);
+    getLeafNodes(root->right,leafNodes);
+    
+}
