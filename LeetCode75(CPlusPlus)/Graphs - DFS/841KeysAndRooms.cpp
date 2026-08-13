@@ -15,13 +15,10 @@ public:
         */
 
         queue<int> visitingRooms;
+        visitingRooms.push(0);
         unordered_set<int> visitedRooms {0};
         //need to think of conditions that I can wrap this in for starting and ending 
         //when the queue is empty we end
-        for(int i : keys){
-            visitingRooms.push(i);
-            visitedRooms.insert(i);
-        }
 
         while(!visitingRooms.empty()){
             int curRoom = visitingRooms.front();
@@ -33,8 +30,6 @@ public:
             }
             visitingRooms.pop();
         }
-
-        cout << visitedRooms.size() << "\n";
         return visitedRooms.size() == rooms.size();
         //if the size of the set is smaller than the size of the initial vector than 
         //we didn't reach all of them
