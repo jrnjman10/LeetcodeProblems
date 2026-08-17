@@ -1,60 +1,46 @@
 class Solution {
 public:
     int nearestExit(vector<vector<char>>& maze, vector<int>& entrance) {
-        /*
-            Just check up, right, down, left
-            if clear add position to queue
-        */
+        vector<int> dx = {1,-1,0,0};
+        vector<int> dy = {0,0,1,-1};
+        int r = maze.size();
+        int c = maze[0].size();
 
-        int sizeL = maze.size(); //
-        int sizeW = maze[0].size(); //gives us coords to check if valid
+        vector<vector<bool>> exit(r, vector<bool>(c,false));
+        vector<vector<int>> distance(r, vector<int>(c,0));
 
-        queue<vector<int>> q;
-        q.push(entrance);
-        int steps = -1;
-        //we don't check if entrance is exit
-        vector<int> curr;
-        bool escaped = false;
-        while(!q.empty()){
-            curr = q.front();
-            int x = curr[1];
-            int y = curr[0];
-            steps = abs(y-entrance[0]) + abs(x-entrance[1]);
-            vector<int> add;
-            cout << curr[0] << curr[1] << " " << entrance[0] << entrance [1] << "\n";
-            if((curr[0] == 0 || curr[0] == sizeL-1 || curr[1] == 0 || curr[1] == sizeW-1) && (curr[0] != entrance[0] || curr[1] != entrance[1])) return steps;
-            //up
-            if(y-1 > -1 && maze[y-1][x] != '+'){
-                add.push_back(y-1);
-                add.push_back(x);
-                q.push(add);
-                add.clear();
-            }
-            //down
-            if(y+1 < sizeL && maze[y+1][x] != '+'){
-                add.push_back(y+1);
-                add.push_back(x);
-                q.push(add);
-                add.clear();
-            }
-            //right
-            if(x-1 > -1 && maze[y][x-1] != '+'){
-                add.push_back(y);
-                add.push_back(x-1);
-                q.push(add);
-                add.clear();
-            }
-            //left
-            if(x+1 < sizeW && maze[y][x+1] != '+'){
-                add.push_back(y);
-                add.push_back(x+1);
-                q.push(add);
-                add.clear();
-            }
-            q.pop();
+        for(int i = 0; i < r; i++){
+            if(maze[i][0] == '.') exit[i][0] = true;
+            if(maze[i][c-1] == '.') exit[i][c-1] = true;
+        }
+        for(int i = 1; i < c-1; i++){
+            if(maze[0][i] == '.') exit[0][i] = true;
+        }
+        for(int i = 1; i < c-1; i++){
+            if(maze[r-1][i] == '.') exit[r-1][i] = true;
         }
 
+        int sx = entrance[0];
+        int sy = entrance[1];
 
+        queue<pair<int,int>> q;
+        q.push({sx,sy});
+
+        while(!q.empty()){
+            auto[x,y] = q.front();
+            q.pop();
+            if(exit[x][y] && (x != sx || y != sy)) return distance[x][y];
+            for(int i = 0; i < 4; i++){
+                int nx = x + dx[i];
+                int ny = y + dy[i];
+                if(nx < r && nx >= 0  && ny < c && ny >= 0 && maze[nx][ny] == '.'){
+                    if(!distance[nx][ny]){
+                        distance[nx][ny] = distance[x][y] + 1;
+                        q.push({nx,ny});
+                    }
+                }
+            }
+        }
         return -1;
     }
 };
