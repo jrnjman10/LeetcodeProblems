@@ -27,11 +27,9 @@ public:
         for(int i = n/2 -1; i >= 0; i--){
             heapify(nums,i,n);
         }
-        for (int i = n-1; i > 0; i--){
+        for (int i = n-1; i >= 0; i--){
             swap(nums[i],nums[0]);
-            for(int j = (i-1)/2-1; j>=0; j--){
-                heapify(nums,j,i-1);
-            }
+            heapify(nums,0,i);
             //cout << nums << endl;
         }
         //cout << nums << "\n";
