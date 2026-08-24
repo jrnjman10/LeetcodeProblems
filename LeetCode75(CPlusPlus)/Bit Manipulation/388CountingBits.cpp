@@ -1,22 +1,18 @@
 class Solution {
 public:
     vector<int> countBits(int n) {
-        vector<int> final;
+        vector<int> final(n+1);
         if(n == 0){
-            final.push_back(1);
             return final;
         }
 
+/*
+Powers of 2 are 1
+you reflect the previous steps to get to the next
+*/
 
-        final.push_back(0);
         for(int i = 1; i <= n; i++){
-            int sum = 0;
-            int num = i;
-            while(num != 0){
-                sum += num%2;
-                num = num/2;
-            }
-            final.push_back(sum);
+            final[i] = final[i/2] + i%2;
         }      
         return final;
     }
